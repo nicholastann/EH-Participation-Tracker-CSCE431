@@ -73,11 +73,11 @@
 	<link rel="stylesheet" href="css/dashstyle.css"/>
 </head>
 
-<body onload="updatetext();">
+<body>
 	<!-- Page Preloder -->
 	<div id="preloder"><div class="loader"></div></div>
 
-	<title>Welcome to Family Management.</title>
+	<title>Welcome.</title>
 
 	<div class="colorlib-loader"></div>
 

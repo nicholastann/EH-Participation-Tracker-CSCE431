@@ -15,19 +15,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE UIN = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = pg_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_UIN);
+            pg_stmt_bind_param($stmt, "s", $param_UIN);
             
             // Set parameters
             $param_UIN = trim($_POST["UIN"]);
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if(pg_stmt_execute($stmt)){
                 /* store result */
-                mysqli_stmt_store_result($stmt);
+                pg_stmt_store_result($stmt);
                 
-                if(mysqli_stmt_num_rows($stmt) == 1){
+                if(pg_stmt_num_rows($stmt) == 1){
                     $UIN_err = "This UIN is already taken.";
                 } else{
                     $UIN = trim($_POST["UIN"]);
@@ -37,7 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            pg_stmt_close($stmt);
         }
 	}
 	
@@ -48,19 +48,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $sql = "SELECT id FROM users WHERE email = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = pg_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $email);
+            pg_stmt_bind_param($stmt, "s", $email);
             
             // Set parameters
             $param_email = trim($_POST["email"]);
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if(pg_stmt_execute($stmt)){
                 /* store result */
-                mysqli_stmt_store_result($stmt);
+                pg_stmt_store_result($stmt);
                 
-                if(mysqli_stmt_num_rows($stmt) == 1){
+                if(pg_stmt_num_rows($stmt) == 1){
                     $email_err = "This email is already taken.";
                 } else{
                     $email = trim($_POST["email"]);
@@ -70,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            pg_stmt_close($stmt);
         }
     }
     
@@ -89,9 +89,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare an insert statement
         $sql = "INSERT INTO users (UIN, password, email) VALUES (?, ?, ?)";
          
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = pg_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $param_UIN, $param_password, $param_email);
+            pg_stmt_bind_param($stmt, "sss", $param_UIN, $param_password, $param_email);
             
             // Set parameters
 			$param_UIN = $UIN;
@@ -99,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
 
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if(pg_stmt_execute($stmt)){
                 // Redirect to login page
                 header("location: login.php");
             } else {
@@ -107,12 +107,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            pg_stmt_close($stmt);
         }
     }
     
     // Close connection
-    mysqli_close($link);
+    pg_close($link);
 }
 ?>
  
@@ -153,7 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			<div class="wrap-login100">
 				<form  action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="login100-form validate-form">
 					<span class="login100-form-title p-b-26">
-						Thanks for signing up to Family Manager!
+						Thanks for signing up!
 					</span>
 				
 					<div class="wrap-input100 validate-input">

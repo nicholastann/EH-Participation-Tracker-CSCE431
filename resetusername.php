@@ -42,16 +42,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare an update statement
         $sql = "UPDATE users SET UIN = ? WHERE id = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = pg_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "si", $param_UIN, $param_id);
+            pg_stmt_bind_param($stmt, "si", $param_UIN, $param_id);
             
             // Set parameters
             $param_UIN = $new_UIN;
             $param_id = $_SESSION["id"];
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if(pg_stmt_execute($stmt)){
                 // UIN updated successfully. Destroy the session, and redirect to login page
                 session_destroy();
                 header("location: settings.php");
@@ -61,12 +61,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            pg_stmt_close($stmt);
         }
     }
     
     // Close connection
-    mysqli_close($link);
+    pg_close($link);
 }
 ?>
 

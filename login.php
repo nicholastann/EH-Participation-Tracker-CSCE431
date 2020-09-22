@@ -37,23 +37,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $sql = "SELECT id, UIN, password FROM users WHERE UIN = ?";
         
-        if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = pg_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_UIN);
+            pg_stmt_bind_param($stmt, "s", $param_UIN);
             
             // Set parameters
 			$param_UIN = $UIN;
             
             // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
+            if(pg_stmt_execute($stmt)){
                 // Store result
-                mysqli_stmt_store_result($stmt);
+                pg_stmt_store_result($stmt);
                 
                 // Check if UIN exists, if yes then verify password
-                if(mysqli_stmt_num_rows($stmt) == 1){                    
+                if(pg_stmt_num_rows($stmt) == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $UIN, $hashed_password);
-                    if(mysqli_stmt_fetch($stmt)){
+                    pg_stmt_bind_result($stmt, $id, $UIN, $hashed_password);
+                    if(pg_stmt_fetch($stmt)){
 
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
@@ -77,11 +77,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             else echo "Oops! Something went wrong. Please try again later.";
 
             // Close statement
-            mysqli_stmt_close($stmt);
+            pg_stmt_close($stmt);
         }
     }
     // Close connection
-    mysqli_close($link);
+    pg_close($link);
 }
 ?>
 
@@ -122,7 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" >
 					<span class="login100-form-title p-b-26">
-						Welcome To Family Manager!
+						Welcome!
 					</span>
 				
 
