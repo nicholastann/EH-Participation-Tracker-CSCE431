@@ -1,0 +1,68 @@
+
+<p id="notice"><%= notice %></p>
+
+<h1>Students</h1>
+
+<br>
+
+<table id="dttb" class="table">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>UIN</th>
+      <th>Class Year</th>
+      <th>Major</th>
+      <th>GPA</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @students.each do |c| %>
+       <tr>
+        <td><%= c.firstName%></td>
+        <td><%= c.lastName%></td>
+        <td><%= c.email %></td>
+        <td><%= c.uin %></td>
+        <td><%= c.year %></td>
+        <td><%= c.major%></td>
+        <td><%= c.gpa%></td>
+        <td><%= c.status%></td>
+        <td>
+          <b> <%= link_to '<i class="fa fa-pencil fa-lg" aria-hidden="true" data-toggle="tooltip" title="Edit"></i>'.html_safe, edit_student_path(c)%></b> |
+          <b> <%= link_to '<i class="fa fa-trash fa-lg" aria-hidden="true" data-toggle="tooltip" title="Delete"></i>'.html_safe, c,  method: :delete, data: { confirm: 'Are you sure?' } %></b> |
+          <b> <%= link_to '<i class="fa fa-search fa-lg" aria-hidden="true" data-toggle="tooltip" title="View"></i>'.html_safe, c%></b>
+        </td>
+       </tr>
+       <% end %>
+    <% if @students.blank? %>
+        <tr>
+            <td>There are not any students currently in the system.</td>
+        </tr>
+    <% end %>
+        
+  </tbody>
+</table>
+
+<%= link_to '<span data-toggle="tooltip" title="Add New Student"><i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;Add Student</span>'.html_safe, new_student_path%>
+
+<div style="margin-top:10px;">
+</div>
+
+    <%= form_tag import_students_path, multipart: true do %>
+      <%= file_field_tag :file %>
+      <%= submit_tag "Import CSV" %>
+    <% end %>
+
+<div style="margin-top:10px;">
+</div>
+
+<div>
+  <%= link_to "Download Student CSV", students_path(format: "csv", set: 1) %>
+</div>
+
+<div>
+  <%= link_to "Download Student Events CSV", students_path(format: "csv", set: 2) %>
+</div>

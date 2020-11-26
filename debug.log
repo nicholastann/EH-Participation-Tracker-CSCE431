@@ -1,0 +1,3 @@
+[1022/072726.272:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\Phillip\AppData\Local\Temp\scoped_dir9536_213730103\Crashpad\attachments\5b1fda86-8b6d-4fad-8b27-3047df944296: The system cannot find the path specified. (0x3)
+[1022/072726.399:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)
+[1022/072726.399:ERROR:process_reader_win.cc(151)] SuspendThread: Access is denied. (0x5)

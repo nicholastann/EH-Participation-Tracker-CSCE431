@@ -1,0 +1,57 @@
+<%= form_with(model: student, local: true) do |form| %>
+  <% if student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+      <% student.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+  <%= form.label :firstName, 'First Name' %>
+    <%= form.text_field :firstName, id: :student_firstName, required: true%>
+  </div>
+
+  <div class="field">
+    <%= form.label :lastName, 'Last Name' %>
+    <%= form.text_field :lastName, id: :student_lastName, required: true%>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :student_email, required: true%>
+  </div>
+
+  <div class="field">
+    <%= form.label :uin %>
+    <%= form.number_field :uin, id: :student_uin, required: true%>
+  </div>
+
+  <div class="field">
+    <%= form.label :year %>
+    <%= form.number_field :year, id: :student_year, required: true%>
+  </div>
+
+  <div class="field">
+    <%= form.label :major %>
+    <%= form.text_field :major, id: :student_major, required: true%>
+  </div>
+
+  <div class="field">
+    <%= form.label :gpa %>
+    <%= form.text_field :gpa, id: :student_gpa, required: true%>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select(:status, Student::STANDING_LIST, :class => "student_status") %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

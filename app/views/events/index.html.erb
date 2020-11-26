@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Events</h1>
+
+<br>
+
+<% current_student = current_user.student %>
+
+<table id="dttb2" class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>EventType</th>
+      <th>Location</th>
+      <th>Actions</th>
+      <th>Student Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |c| %>
+       <tr>
+        <td><%= c.name %></td>
+        <td><%= c.date%></td>
+        <td><%= c.description%></td>
+        <td><%= c.event_type %></td>
+        <td><%= c.location %></td>
+        <td>
+          <b> <%= link_to '<i class="fa fa-pencil fa-lg" aria-hidden="true" data-toggle="tooltip" title="Edit"></i>'.html_safe, edit_event_path(c)%></b> |
+          <b> <%= link_to '<i class="fa fa-trash fa-lg" aria-hidden="true" data-toggle="tooltip" title="Delete"></i>'.html_safe, c,  method: :delete, data: { confirm: 'Are you sure?' } %></b> |
+          <b> <%= link_to '<i class="fa fa-search fa-lg" aria-hidden="true" data-toggle="tooltip" title="View"></i>'.html_safe, c%></b>
+        </td>
+        <td>
+          <% if current_student.event.where(name: c.name).exists? %>
+            <%= button_to "Unattend", {:controller => "students", :action => "remove_event", :event => c, :user => current_user}, :method=> :post  %>
+          <% else %>
+            <%= button_to 'Attend', {:controller => "students", :action => "add_event", :event => c, :user => current_user}, :method=> :post  %>
+          <% end %>
+        </td>
+       </tr>
+       <% end %>
+    <% if @events.blank? %>
+        <tr>
+            <td>There are not any events currently in the system.</td>
+        </tr>
+    <% end %>
+        
+  </tbody>
+</table>
+
+<%= link_to '<span data-toggle="tooltip" title="Add New Event to Collection"><i class="fa fa-plus fa-lg" aria-hidden="true"></i>&nbsp;Add Event</span>'.html_safe, new_event_path%>
+
+<div style="margin-top:10px;">
+</div>
+
+<%= form_tag import_events_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import CSV" %>
+<% end %>
+
+<div style="margin-top:10px;">
+</div>
+
+<%= link_to "Download CSV", events_path(format: "csv") %>

@@ -1,0 +1,121 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require datatables
+ */
+
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
+
+button.hidden { display: none; }
+
+body {
+  background-color: #dddddd;
+}
+
+hr {
+  color: #000000;
+  background-color: #000000;
+  height: 1px;
+}
+
+#title {
+  color: #500000;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  background-color: #500000;
+  color: #ffffff;
+  width: 100%;
+  border:1px solid #000000;
+}
+
+.container-fluid {
+  background-color: #500000;
+}
+
+.navbar-collapse {
+  background-color: #500000;
+}
+
+.active a {
+  background-color: #400000 !important;
+  color: #ffffff;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+  height: 1000px
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  height: 100%;
+}
+
+.col-sm-2.sidenav a {
+  color: #500000;
+}
+
+.sideactive a {
+  color: #ff0000 !important;
+}
+
+.eventcard {
+}
+  
+.studentcard {
+}
+
+/*.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #500000;
+	border-color: #200000;
+}
+
+.btn-primary:focus, .btn-primary:success, .btn-success:active:focus, btn-sample:active {
+    background-color: #700000;
+}*/
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+  .sidenav {
+    height: auto;
+    padding: 15px;
+	
+  }
+  
+  #rightnav {
+    position: fixed;
+	bottom: 0;
+	right: 0;
+	background-color: #ffffff;
+  } 
+  
+  .title {
+    bottom: 20px;
+  }
+
+  .row.content {
+    height: auto;
+  }
+  
+  .navbar-header {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  }
+}

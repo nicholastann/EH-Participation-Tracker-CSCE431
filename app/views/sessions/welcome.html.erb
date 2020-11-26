@@ -1,0 +1,93 @@
+
+<div class="col-sm-12 text-center title">
+<hr>
+<h1 id="title">Engineering Honors Participation Tracker</h1>
+<p></p>
+<hr>
+</div>
+
+<% if logged_in? %>
+    <h1>Welcome back, <%= current_user.email %>!</h1>
+    
+    <% if current_user.student.nil? %>
+      <% student_match = Student.find_by(email: current_user.email) %>
+        <% if student_match.nil? %>
+          <% current_user.create_student(firstName: "Your first name", lastName: "Your last name",  email: current_user.email, uin: Student.count+1, year: "2020", major:"Your major", gpa:"4.0", status: "Good Standing") %>  
+        <% else %>
+          <% current_user.create_student(firstName: student_match.firstName, lastName: student_match.lastName,  email: current_user.email, uin: student_match.uin, year: student_match.year, major: student_match.major, gpa: student_match.gpa , status: student_match.status) %>
+        <% end %>
+    <% end %>
+
+    <% current_student = current_user.student %>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Email</th>
+      <th>UIN</th>
+      <th>Class Year</th>
+      <th>Major</th>
+      <th>GPA</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+       <tr>
+        <td><%= current_user.student.firstName%></td>
+        <td><%= current_user.student.lastName%></td>
+        <td><%= current_user.student.email %></td>
+        <td><%= current_user.student.uin %></td>
+        <td><%= current_user.student.year %></td>
+        <td><%= current_user.student.major%></td>
+        <td><%= current_user.student.gpa%></td>
+        <td><%= current_user.student.status%></td>
+       </tr>
+  </tbody>
+</table>
+
+
+
+<table id="dttb" class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Description</th>
+      <th>EventType</th>
+      <th>Location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% current_student.event.each do |c| %>
+       <tr>
+        <td><%= c.name %></td>
+        <td><%= c.date%></td>
+        <td><%= c.description%></td>
+        <td><%= c.event_type %></td>
+        <td><%= c.location %></td>
+       </tr>
+       <% end %>
+       <% if current_student.event.empty? %>
+       <tr>
+           <td>You have not attended any events.</td>
+       </tr>
+   <% end %>
+  </tbody>
+</table>
+
+
+
+
+<% else %>
+    <h1>Please sign-in to continue!</h1>
+    <button class="btn btn-primary"><%= link_to "Login", '/login', method: :get%></button>
+    <button class="btn btn-primary"> <%= link_to "Sign Up", '/users/new', method: :get%> </button>
+<% end %>
+
+<style>
+  a {
+    color: #fff !important;
+  }
+</style>

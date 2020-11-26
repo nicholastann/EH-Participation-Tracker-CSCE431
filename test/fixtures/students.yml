@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  firstName: MyString
+  lastName: MyString
+  email: MyString
+  year: 1
+  gpa: 3.1
+  major: MyString
+  status: MyString
+
+two:
+  firstName: MyString
+  lastName: MyString
+  email: MyString
+  year: 1
+  gpa: 3.0
+  major: MyString
+  status: MyString

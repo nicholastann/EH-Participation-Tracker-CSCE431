@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EH Participation Tracker</title>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag asset_path('favicon.png'), :rel => 'icon', :type =>  'image/png' %>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+   
+
+  <style>
+
+  :root {
+    --background-color: #dddddd;
+    --text-color: #333333;
+    --nav-color: #500000;
+    --nav-text: #ffffff;
+    --title-color: #500000;
+  }
+
+  [data-theme="dark"] {
+    --background-color: #333333 !important;
+    --text-color: #dddddd !important;
+    --nav-color: #252525 !important;
+    --nav-text: #ffffff !important;
+    --title-color: #dddddd !important;
+  }
+
+  body {
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+
+  hr {
+    color: var(--text-color);
+    background-color: var(--text-color);
+    height: 1px;
+  }
+
+  #title {
+    color: var(--title-color);
+  }
+
+  /* Remove the navbars default margin-bottom and rounded borders */
+  .navbar {
+    margin: 0px;
+    border-radius: 0;
+    background-color: var(--nav-color);
+    color: var(--nav-text);
+    width: 100%;
+    display: grid;
+    border:1px solid #000000;
+  }
+
+  .container-fluid {
+    background-color: var(--nav-color);
+    width: 100%;
+  }
+
+  .navbar-collapse {
+    background-color: var(--nav-color);
+  }
+
+  .mynav-link {
+    color: #fff !important;
+  }
+
+  .mynav:hover {
+    color: #000 !important;
+  }
+
+  .mynav-link:hover {
+    color: #000 !important;
+  }
+
+  .active a {
+    background-color: #400000 !important;
+    color: #ffffff;
+  }
+
+  /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+  .row.content {
+    height: 1000px
+  }
+
+  /* Set gray background color and 100% height */
+  .sidenav {
+    padding-top: 20px;
+    background-color: #f1f1f1;
+    height: 100% ;
+  }
+
+  .col-sm-2.sidenav a {
+    color: #500000;
+  }
+
+  .sideactive a {
+    color: #ff0000 !important;
+  }
+
+  /*.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+      background-color: #500000;
+	  border-color: #200000;
+  }
+
+  .btn-primary:focus, .btn-primary:success, .btn-success:active:focus, btn-sample:active {
+      background-color: #700000;
+  }*/
+
+  .sample {
+    position: fixed;
+    bottom: 4px;
+    right: 4px;
+  }
+	  
+  #event_name, #event_date, #event_description, #event_type, #location, input[type="submit"], #student_firstName, #student_lastName, #student_email, #student_uin, #student_year, #student_major, option[value="Good Standing"], option[value="Bad Standing"], select[name="student[status]"], input[type="text"], .modal-body, .attend, select[name="dttb_length"], select[name="dttb2_length"], input[type="search"], #user_password, #password {
+    color: black;
+  }
+
+  .table {
+    width: 100%;
+    height: 100%;
+    display: block;
+    white-space: nowrap;
+    table-layout: fixed !important;
+    border-collapse: separate !important;
+  }
+
+  .attend {
+    position: relative !important;
+    align-items: center !important;
+    top: 10% !important;
+    left: 35% !important;
+  }
+
+  thead, tbody, tr, td, th {
+    border-bottom: solid 1px !important;
+    border-bottom-color: var(--title-color) !important;
+  }
+
+  thead, th {
+    border-bottom: solid 3px !important;
+    border-bottom-color: var(--title-color) !important;
+  }
+
+  th, td {
+    padding-right: 50px !important;
+  }
+
+  #eventExport {
+    float: right;
+  }
+
+  .fa {
+   color: #337ab7;
+  }
+
+  /* On small screens, set height to 'auto' for sidenav and grid */
+  @media screen and (max-width: 767px) {
+    .sidenav {
+      height: auto;
+      padding: 15px;
+    }
+  
+    #rightnav {
+      position: fixed;
+	  bottom: 0;
+	  right: 0;
+	  background-color: #ffffff;
+    } 
+  
+    .title {
+      bottom: 20px;
+    }
+
+    .row.content {
+      height: auto;
+    }
+  
+    .navbar-header {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    }
+
+    th, td {
+    padding-right: 20px !important;
+    }
+  }
+  </style>
+  </head>
+
+  <body>
+    <%= render 'layouts/header' %>
+    <div class='app-container container'>
+        <div class='content'>
+            <%= yield %>
+
+            
+
+        </div>
+        <%= render 'layouts/modals' %>
+        <%= render 'layouts/footer' %>
+    </div>
+  </body>
+</html>
